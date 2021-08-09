@@ -7,8 +7,8 @@
     - libssl-dev
     - libssl-doc
     - python3-dev
-    - python-pip
-    - python-psycopg2
+    - python3-pip
+    - acl
 
 - name: "Install DB packages"
   apt: "name={{ packages }} state=present"
@@ -33,7 +33,7 @@
   register: postgres_data
 
 # - name: "Initialize PostgreSQL"
-#   shell: "/usr/lib/postgresql/9.5/bin/initdb"
+#   shell: "postgresql-setup initdb"
 #   when: not postgres_data.stat.exists
 
 - name: "Start and enable services"

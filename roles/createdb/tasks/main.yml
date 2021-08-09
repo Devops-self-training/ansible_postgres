@@ -5,8 +5,7 @@
   postgresql_db:
     state: present
     name: "{{ db_name }}"
-    # become: yes
-    # become_user: postgres
+
 - name: "create database user"
   postgresql_user:
     state: present
@@ -25,13 +24,21 @@
   become: yes
   become_user: postgres
 
+- name: "accept config for port 5432 from any IPs"
+  become: yes
+  ansible.builtin.lineinfile:
+    path: "/etc/postgresql/12/main/postgresql.conf"
+    regexp: "^#listen_addresses ="
+    line: "listen_addresses = '*'"
 - name: "Allow md5 connection for the db user"
   postgresql_pg_hba:
-    dest: "~/data/pg_hba.conf"
+    # xu dung Pg hba congfig  de mo connection md5
+    dest: "/etc/postgresql/12/main/pg_hba.conf"
     contype: host
     databases: all
     method: md5
     users: "{{ db_user }}"
+    source: "0.0.0.0/0"
     create: true
   become: yes
   become_user: postgres
