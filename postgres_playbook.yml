@@ -1,6 +1,6 @@
 ---
 - name: Create a postgreSQL DB server
-  hosts: dbserver
+  hosts: all
   remote_user: ubuntu
   become: yes
   vars_files:
