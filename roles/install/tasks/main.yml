@@ -25,6 +25,7 @@
       - postgresql-contrib
       - libpq-dev
       - libpcap-dev
+      - postgresql-client-common
 
 - name: "Install Python packages"
   pip: "name={{ item }}  state=present"
